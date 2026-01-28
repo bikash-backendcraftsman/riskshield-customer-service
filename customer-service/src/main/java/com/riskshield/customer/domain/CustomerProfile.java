@@ -10,18 +10,17 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "customers")
-public class Customer {
+public class CustomerProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String customerId;
     private String name;
-    private LocalDate LocalDateOfBirth;
+    private LocalDate dateOfBirth;
     private String email;
     private String phoneNum;
     @Enumerated(EnumType.STRING)
