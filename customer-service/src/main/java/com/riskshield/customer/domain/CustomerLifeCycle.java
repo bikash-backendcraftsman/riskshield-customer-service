@@ -9,19 +9,25 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
+@Table(name = "customer_lifecycle")
 public class CustomerLifeCycle {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID lifecycleId;
 
     @Enumerated(EnumType.STRING)
     private OnBoardingStage onBoardingStage;
     private KYCStatus kycStatusRecord;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    /* ----------------- Audit Fields ----------------- */
 
-    @OneToOne
-    @JoinColumn(name = "customerId")
+    private Instant lastUpdatedAt;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "customerId",
+            nullable = false,
+            unique = true
+    )
     private CustomerProfile customerProfile;
 }

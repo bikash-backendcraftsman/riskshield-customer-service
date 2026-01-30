@@ -17,12 +17,23 @@ import java.util.UUID;
 
 /**
  * Core Entity
+ *
+ * CustomerProfile (ROOT)
+ * |
+ * |-- CustomerContact
+ * |-- CustomerAddress (1..*)
+ * |-- CustomerLifecycle
+ * |-- CustomerRiskProfile (optional)
+ * |-- CustomerPreference (optional)
  */
+
+
 @Entity
 @Table(name = "customer_profile")
 public class CustomerProfile {
     @Id
-    @GeneratedValue
+    @Column(columnDefinition = "UUID")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID customerId;
     private String name;
     private LocalDate dateOfBirth;
@@ -31,21 +42,44 @@ public class CustomerProfile {
 
     @Enumerated(EnumType.STRING)
     private CustomerType customerType;
+
     @Enumerated(EnumType.STRING)
     private Occupations occupation;
+
     @Enumerated(EnumType.STRING)
     private CustomerStatus status;
 
-    @OneToOne(mappedBy = "customer",cascade=CascadeType.ALL)
+    /* ----------------- Relationships ----------------- */
+
+    @OneToOne(mappedBy = "customerProfile",
+            cascade=CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            optional = false
+    )
     private CustomerContact customerContact;
 
-    @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
+
+    @OneToOne(
+            mappedBy = "customerProfile",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            optional = false
+    )
     private CustomerLifeCycle lifeCycle;
 
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    @OneToMany(
+            mappedBy = "customerProfile",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
+    )
     private List<CustomerAddress> customerAddressList = new ArrayList<>();
 
+    /* ----------------- Audit Fields ----------------- */
+
+    @Column(updatable = false)
     private Instant createdAt;
+
     private Instant updatedAt;
 
 }

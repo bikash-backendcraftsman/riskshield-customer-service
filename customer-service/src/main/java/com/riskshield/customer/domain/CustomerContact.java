@@ -6,10 +6,11 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table(name = "customer_contact")
 public class CustomerContact {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID contactId;
 
     private String mobileNumber;
@@ -17,7 +18,11 @@ public class CustomerContact {
     private String email;
     private String preferCommunicationMode;
 
-    @OneToOne
-    @JoinColumn(name = "customerId")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "customerId",
+            nullable = false,
+            unique = true
+    )
     private CustomerProfile customerProfile;
 }

@@ -5,19 +5,25 @@ import jakarta.persistence.*;
 
 import java.util.UUID;
 @Entity
+@Table(name = "customer_address")
 public class CustomerAddress {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID addressId;
 
     @Enumerated(EnumType.STRING)
     private AddressType addressType;
+    @Column(nullable = false, unique = true)
     private String city;
+    @Column(nullable = false,unique = true)
     private String state;
+    @Column(nullable = false,unique = true)
     private int pinCode;
 
-    @ManyToOne
-    @JoinColumn(name = "customerId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerId",unique = false)
     private CustomerProfile customerProfile;
+
+    private boolean primaryAddress;
 }
