@@ -11,7 +11,6 @@ public interface CustomerProfileRepository extends JpaRepository<CustomerProfile
 
     Optional<CustomerProfile> findByEmail(String email);
 
-    CustomerProfile findByPhoneNumber(String phoneNUmber);
 
     boolean existsByCustomerId(String customerId);
 

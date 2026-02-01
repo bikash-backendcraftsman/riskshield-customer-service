@@ -1,4 +1,4 @@
-package com.riskshield.customer.api.customer.response.enums;
+package com.riskshield.customer.api.response.enums;
 
 public enum CustomerSummaryStatus {
     NEW,

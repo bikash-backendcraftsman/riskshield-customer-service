@@ -1,6 +1,6 @@
 package com.riskshield.customer.domain.enums;
 
-public enum Occupations {
+public enum Occupation {
     SOFTWARE_ENGINEER,
     BUSINESS_OWNER,
     GOVT_EMPLOYEE,

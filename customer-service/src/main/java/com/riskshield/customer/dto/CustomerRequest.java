@@ -1,7 +1,7 @@
 package com.riskshield.customer.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.riskshield.customer.domain.enums.Occupations;
+import com.riskshield.customer.domain.enums.Occupation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +19,5 @@ public class CustomerRequest {
     private LocalDate dateOfBirth;
     private String email;
     private String phoneNum;
-    private Occupations occupation;
+    private Occupation occupation;
 }

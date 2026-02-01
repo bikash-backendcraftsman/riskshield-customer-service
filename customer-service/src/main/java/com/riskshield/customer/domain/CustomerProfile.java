@@ -2,12 +2,8 @@ package com.riskshield.customer.domain;
 
 import com.riskshield.customer.domain.enums.CustomerStatus;
 import com.riskshield.customer.domain.enums.CustomerType;
-import com.riskshield.customer.domain.enums.Occupations;
-import com.riskshield.customer.domain.enums.RiskCategory;
+import com.riskshield.customer.domain.enums.Occupation;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -44,7 +40,7 @@ public class CustomerProfile {
     private CustomerType customerType;
 
     @Enumerated(EnumType.STRING)
-    private Occupations occupation;
+    private Occupation occupation;
 
     @Enumerated(EnumType.STRING)
     private CustomerStatus status;

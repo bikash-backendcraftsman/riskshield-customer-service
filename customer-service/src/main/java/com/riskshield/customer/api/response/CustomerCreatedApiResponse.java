@@ -1,4 +1,4 @@
-package com.riskshield.customer.api.customer.response;
+package com.riskshield.customer.api.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerResponse {
+public class CustomerCreatedApiResponse {
     private String customerId;
-    private String name;
-    private String email;
-    private String occupation;
-    private String status;
-
+    private String action; //"action": "CREATE_CUSTOMER",
 }

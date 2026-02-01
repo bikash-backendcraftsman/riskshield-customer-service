@@ -1,17 +1,17 @@
-package com.riskshield.customer.api.customer.response;
+package com.riskshield.customer.api.response.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerCreatedResponse {
+public class CustomerApiResponse {
     private String customerId;
-    private String status;
+    private String email;
+    private String action; //  "action": "ADD_ADDRESS",
+
 }

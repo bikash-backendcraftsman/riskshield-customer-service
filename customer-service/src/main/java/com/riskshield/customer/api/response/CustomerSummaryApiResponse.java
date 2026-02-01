@@ -1,6 +1,6 @@
-package com.riskshield.customer.api.customer.response;
+package com.riskshield.customer.api.response;
 
-import com.riskshield.customer.api.customer.response.enums.CustomerSummaryStatus;
+import com.riskshield.customer.api.response.enums.CustomerSummaryStatus;
 
 /**
  * 📌 Used by:
@@ -8,7 +8,7 @@ import com.riskshield.customer.api.customer.response.enums.CustomerSummaryStatus
  * 	•	Claims Service
  * 	•	Pricing Engine
  */
-public class CustomerSummaryResponse {
+public class CustomerSummaryApiResponse {
     private String customerId;
     private String riskCategory;
     private CustomerSummaryStatus summaryStatus;
