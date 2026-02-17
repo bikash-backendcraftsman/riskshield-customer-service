@@ -2,6 +2,7 @@ package com.riskshield.customer.service.Impl;
 
 import com.riskshield.customer.api.request.CreateCustomerApiRequest;
 import com.riskshield.customer.api.response.CustomerCreatedApiResponse;
+import com.riskshield.customer.command.CreateCustomerCommand;
 import com.riskshield.customer.service.CustomerApplicationService;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public class CustomerApplicationServiceImpl implements CustomerApplicationServic
      */
 
     @Override
-    public CustomerCreatedApiResponse createCustomer(CreateCustomerApiRequest request) {
+    public CustomerCreatedApiResponse createCustomer(CreateCustomerCommand commandRequest) {
 
         return null;
     }

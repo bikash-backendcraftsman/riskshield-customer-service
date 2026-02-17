@@ -4,6 +4,7 @@ import com.riskshield.customer.domain.enums.CustomerStatus;
 import com.riskshield.customer.domain.enums.CustomerType;
 import com.riskshield.customer.domain.enums.Occupation;
 import com.riskshield.customer.domain.valueObjects.ContactInformation;
+import com.riskshield.customer.domain.valueObjects.CustomerPreference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,21 +18,11 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Core Entity
- *
- * CustomerProfile (ROOT)
- * |
- * |-- CustomerContact
- * |-- CustomerAddress (1..*)
- * |-- CustomerLifecycle
- * |-- CustomerRiskProfile (optional)
- * |-- CustomerPreference (optional)
+ * Domain (Aggregate) → enforces rules & changes state
  */
-
 
 @Entity
 @Table(name = "customer_profile",indexes = {
-        @Index(name = "idx_customer_email",columnList = "email"),
         @Index(name = "idx_customer_status",columnList = "status"),
         @Index(name = "idx_customer_type",columnList = "customer_type")
 })
@@ -126,5 +117,4 @@ public class CustomerProfile {
     protected void onUpdate() {
         updatedAt = Instant.now();
     }
-
 }
