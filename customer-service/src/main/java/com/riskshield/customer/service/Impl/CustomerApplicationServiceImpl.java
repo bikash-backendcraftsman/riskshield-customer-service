@@ -1,6 +1,5 @@
 package com.riskshield.customer.service.Impl;
 
-import com.riskshield.customer.api.request.CreateCustomerApiRequest;
 import com.riskshield.customer.api.response.CustomerCreatedApiResponse;
 import com.riskshield.customer.command.CreateCustomerCommand;
 import com.riskshield.customer.service.CustomerApplicationService;
@@ -34,7 +33,7 @@ public class CustomerApplicationServiceImpl implements CustomerApplicationServic
      *   <li>Duplicate customers are not created</li>
      * </ul>
      *
-     * @param request API-level request containing customer details
+     * @param commandRequest API-level request containing customer details
      * @return response containing customer identifier and action performed
      */
 
