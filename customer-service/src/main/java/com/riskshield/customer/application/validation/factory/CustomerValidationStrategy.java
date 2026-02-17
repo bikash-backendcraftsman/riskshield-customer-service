@@ -68,8 +68,7 @@ public interface CustomerValidationStrategy {
      *
      * @param customerApiRequest The raw API request. Must not be null. Format already
      *                verified by @Valid before this method is called.
-     * @return {@link  ValidationResult#success()} if all rules pass,
-     *         {@link ValidationResult#failure(Map)} with field-level errors otherwise
+     *
      */
     ValidationResult validate(CreateCustomerApiRequest customerApiRequest);
 }
