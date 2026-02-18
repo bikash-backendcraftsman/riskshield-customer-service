@@ -1,5 +1,9 @@
 package com.riskshield.customer.application.validation.strategy;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class BaseCustomerValidator {
@@ -26,7 +30,69 @@ public class BaseCustomerValidator {
 
     // ── Shared Validation Helpers ─────────────────────────────────────────────
 
-    protected void validateName(){
-
+    protected void validateName(String value,String fieldName,Map<String,String> error){
+        if(value == null || value.isBlank()){
+            error.put(fieldName, fieldName+"Must not be empty");
+            return;
+        }
+        String trimmed = value.trim();
+        if(trimmed.length() < 5){
+            error.put(fieldName, fieldName + " "+ "Must be at least 5 character");
+        } else if (trimmed.length() > 50) {
+            error.put(fieldName,fieldName+" "+"Must not exceed 50 character");
+        }
     }
+
+    protected void validateEmail(String email,Map<String,String> error){
+        if (email == null || email.isBlank()) {
+            error.put("email", "Email must not be empty");
+            return;
+        }
+        if(!EMAIL_PATTERN.matcher(email).matches()){
+            error.put("email", "Email format is invalid. Expected: user@domain.com");
+        }
+    }
+
+    protected void validMobileNumber(String phoneNumber,Map<String,String>error){
+        if(phoneNumber == null || phoneNumber.isBlank()){
+            error.put("phoneNumber","phone Number must not be empty");
+        }
+        String cleanedPhoneNumber = phoneNumber.trim().replaceAll("\\s+","");
+        if(!PHONE_PATTERN.matcher(cleanedPhoneNumber).matches()){
+            error.put("phoneNumber",
+                    "Phone must be a valid 10-digit Indian mobile number starting with 6-9");
+        }
+    }
+
+    protected void validateDateOfBirth(LocalDate dateOfBirth, Map<String,String> error){
+        if(dateOfBirth == null){
+            error.put("dateOfBirth","Date of Birth Must not be null");
+        }
+        if (dateOfBirth.isAfter(LocalDate.now())) {
+            error.put("dateOfBirth", "Date of birth cannot be a future date");
+            return;
+        }
+
+        long age = ChronoUnit.YEARS.between(dateOfBirth,LocalDate.now());
+        if(age < MINIMUM_AGE){
+            error.put("dateOfBirth",
+                    "Customer must be at least " + MINIMUM_AGE + " years old. Calculated age: " + age);
+        }else if(age > MAXIMUM_AGE){
+            error.put("dateOfBirth", "Date of Birth Appears invalid.");
+        }
+    }
+
+    /**
+     * Validates annual income: not null, must be positive.
+     */
+    protected void validateAnnualIncome(BigDecimal income, Map<String, String> errors) {
+        if (income == null) {
+            errors.put("annualIncome", "Annual income must not be null");
+            return;
+        }
+        if (income.compareTo(BigDecimal.ZERO) <= 0) {
+            errors.put("annualIncome", "Annual income must be a positive number");
+        }
+    }
+
 }
