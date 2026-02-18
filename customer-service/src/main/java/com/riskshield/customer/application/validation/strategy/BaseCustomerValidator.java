@@ -95,4 +95,31 @@ public class BaseCustomerValidator {
         }
     }
 
+    /**
+     * Validates PAN number format.
+     */
+    protected void validatePAN(String pan, Map<String, String> errors) {
+        if (pan == null || pan.isBlank()) {
+            errors.put("panNumber", "PAN number must not be empty");
+            return;
+        }
+        if (!PAN_PATTERN.matcher(pan.trim().toUpperCase()).matches()) {
+            errors.put("panNumber",
+                    "PAN format is invalid. Expected format: ABCDE1234F");
+        }
+    }
+
+    /**
+     * Validates GST number format.
+     */
+    protected void validateGST(String gst, Map<String, String> errors) {
+        if (gst == null || gst.isBlank()) {
+            errors.put("gstNumber", "GST number must not be empty");
+            return;
+        }
+        if (!GST_PATTERN.matcher(gst.trim().toUpperCase()).matches()) {
+            errors.put("gstNumber",
+                    "GST format is invalid. Expected 15-character format: 22ABCDE1234F1Z5");
+        }
+    }
 }

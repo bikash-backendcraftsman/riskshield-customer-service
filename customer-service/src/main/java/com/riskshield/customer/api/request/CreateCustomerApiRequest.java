@@ -72,4 +72,11 @@ public class CreateCustomerApiRequest {
     @Valid
     private InitialPreferencesRequest preferences;
 
+    @NotBlank(message = "GST certificate no is required for Indian Customer")
+    @Valid
+    private String gst;
+
+    @NotBlank (message = "Pan Number is required for Indian Customer")
+    private String panNumber;
+
 }
