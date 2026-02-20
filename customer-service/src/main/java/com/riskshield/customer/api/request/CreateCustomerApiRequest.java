@@ -79,4 +79,6 @@ public class CreateCustomerApiRequest {
     @NotBlank (message = "Pan Number is required for Indian Customer")
     private String panNumber;
 
+    @NotBlank(message = "Passport is mandatory.Passport required for both Indian and NRI Customer")
+    private String passportNumber;
 }

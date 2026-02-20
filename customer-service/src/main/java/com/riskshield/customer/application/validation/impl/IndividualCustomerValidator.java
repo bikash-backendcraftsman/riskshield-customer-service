@@ -1,7 +1,7 @@
 package com.riskshield.customer.application.validation.impl;
 
 import com.riskshield.customer.api.request.CreateCustomerApiRequest;
-import com.riskshield.customer.application.validation.factory.CustomerValidationStrategy;
+import com.riskshield.customer.application.validation.strategy.CustomerValidationStrategy;
 import com.riskshield.customer.application.validation.result.ValidationResult;
 import com.riskshield.customer.application.validation.strategy.BaseCustomerValidator;
 import com.riskshield.customer.domain.enums.CustomerType;

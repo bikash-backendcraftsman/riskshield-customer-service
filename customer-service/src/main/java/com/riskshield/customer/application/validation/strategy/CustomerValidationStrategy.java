@@ -1,4 +1,4 @@
-package com.riskshield.customer.application.validation.factory;
+package com.riskshield.customer.application.validation.strategy;
 
 import com.riskshield.customer.api.request.CreateCustomerApiRequest;
 import com.riskshield.customer.application.validation.result.ValidationResult;
