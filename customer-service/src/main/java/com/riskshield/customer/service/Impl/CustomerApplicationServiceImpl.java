@@ -39,7 +39,6 @@ public class CustomerApplicationServiceImpl implements CustomerApplicationServic
 
     @Override
     public CustomerCreatedApiResponse createCustomer(CreateCustomerCommand commandRequest) {
-
         return null;
     }
 }
