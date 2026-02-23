@@ -26,6 +26,13 @@ public class NRICustomerValidator extends BaseCustomerValidator implements Custo
         return CustomerType.NRI;
     }
 
+    /**
+     *
+     * @param customerApiRequest The raw API request. Must not be null. Format already
+     *                verified by @Valid before this method is called.
+     *
+     * @return ValidationResult
+     */
 
     @Override
     public ValidationResult validate(CreateCustomerApiRequest customerApiRequest) {
