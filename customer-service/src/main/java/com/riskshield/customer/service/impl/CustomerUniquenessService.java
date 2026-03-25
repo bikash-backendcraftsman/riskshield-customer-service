@@ -38,4 +38,8 @@ public class CustomerUniquenessService {
             throw new DuplicateContactExistException("Contact nuumber is already registred");
         }
     }
+
+    public String generateUniqueCustomerId(){
+        return null;
+    }
 }

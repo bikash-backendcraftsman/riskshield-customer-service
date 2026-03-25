@@ -35,6 +35,7 @@ public class CustomerValidationStrategyFactory {
         }
 
         CustomerValidationStrategy customerValidationStrategy = strategyMap.get(customerType);
+
         if (customerValidationStrategy == null) {
             throw new UnsupportedOperationException(
                     "No validation strategy registered for customer type: " + customerType +

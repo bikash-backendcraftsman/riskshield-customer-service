@@ -1,11 +1,16 @@
 package com.riskshield.customer.service.impl;
 
+import com.riskshield.customer.api.request.CreateCustomerApiRequest;
 import com.riskshield.customer.api.response.CustomerCreatedApiResponse;
-import com.riskshield.customer.command.CreateCustomerCommand;
+import com.riskshield.customer.application.validation.factory.CustomerValidationStrategyFactory;
+import com.riskshield.customer.application.validation.result.ValidationResult;
+import com.riskshield.customer.application.validation.strategy.CustomerValidationStrategy;
 import com.riskshield.customer.service.CustomerApplicationService;
 import com.riskshield.customer.util.StringNormalizer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * Application service responsible for customer-related use cases.
@@ -27,9 +32,12 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class CustomerApplicationServiceImpl implements CustomerApplicationService {
 
+   private final CustomerValidationStrategyFactory customerValidationStrategyFactory;
    private final CustomerUniquenessService customerUniquenessService;
 
-    public CustomerApplicationServiceImpl(CustomerUniquenessService customerUniquenessService) {
+
+    public CustomerApplicationServiceImpl(CustomerValidationStrategyFactory customerValidationStrategyFactory, CustomerUniquenessService customerUniquenessService) {
+        this.customerValidationStrategyFactory = customerValidationStrategyFactory;
         this.customerUniquenessService = customerUniquenessService;
     }
 
@@ -42,15 +50,30 @@ public class CustomerApplicationServiceImpl implements CustomerApplicationServic
      *   <li>Duplicate customers are not created</li>
      * </ul>
      *
-     * @param commandRequest API-level request containing customer details
+     * @param createCustomerApiRequest API-level request containing customer details
      * @return response containing customer identifier and action performed
      */
 
     @Override
-    public CustomerCreatedApiResponse createCustomer(CreateCustomerCommand commandRequest) {
-        customerUniquenessService.ensureUnique(StringNormalizer.normalizeEmail(commandRequest.getEmail()),
-                StringNormalizer.normalizeMobileNumber(commandRequest.getMobileNumber()));
+    public CustomerCreatedApiResponse onBoardNewCustomer(CreateCustomerApiRequest createCustomerApiRequest) {
 
+        // ── Phase 1: Normalize data ──────────────────────────────────────
+        // Do this FIRST before any validation
+        String normalizedEmail = StringNormalizer.normalizeEmail(createCustomerApiRequest.getEmail());
+        String normalizedPhoneNumber = StringNormalizer.normalizeMobileNumber(createCustomerApiRequest.getMobileNumber());
+
+        // Update request with normalized values
+        createCustomerApiRequest.setEmail(normalizedEmail);
+        createCustomerApiRequest.setMobileNumber(normalizedPhoneNumber);
+
+        // ── Phase 2: Validate business rules ─────────────────────────────
+        // THIS IS WHERE YOUR STRATEGY PATTERN GOES
+        CustomerValidationStrategy strategy = customerValidationStrategyFactory.getStrategy(createCustomerApiRequest.getCustomerType());
+        ValidationResult validationResult = strategy.validate(createCustomerApiRequest);
+
+        if(validationResult.hasErrors()){
+
+        }
         return new CustomerCreatedApiResponse();
     }
 

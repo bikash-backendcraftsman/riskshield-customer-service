@@ -4,8 +4,8 @@ import com.riskshield.customer.api.request.*;
 import com.riskshield.customer.api.response.CustomerCreatedApiResponse;
 import com.riskshield.customer.api.response.common.CustomerApiResponse;
 import com.riskshield.customer.common.web.APIResponse;
+import com.riskshield.customer.service.CustomerApplicationService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +28,13 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/v1/customers")
-public class CustomerCommandController {
+public class CustomerManagementController {
+
+    private CustomerApplicationService customerApplicationService;
+
+    public CustomerManagementController(CustomerApplicationService customerApplicationService) {
+        this.customerApplicationService = customerApplicationService;
+    }
 
     // 1️⃣ Create Customer
     @PostMapping
